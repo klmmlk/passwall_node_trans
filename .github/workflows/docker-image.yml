@@ -13,7 +13,7 @@ env:
   #镜像名称
   IMAGE_NAME: passwall_node_trans
   #dockerHub仓库名称
-  DOCKER_REGISTRY: passwall_node_trans
+  DOCKER_REGISTRY: klmmlk
 jobs:
   build-image:
     #运行的环境  
