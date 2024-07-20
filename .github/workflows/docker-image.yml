@@ -40,8 +40,8 @@ jobs:
         uses: docker/login-action@v1
         with:
         #这里引用的变量为上一步配置的变量
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_PWD }}     
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       # 打包构建并推送
       - name: Build and push
         uses: docker/build-push-action@v4
