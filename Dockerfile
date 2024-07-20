@@ -14,4 +14,4 @@ RUN apt-get update && \
     chmod 0644 /etc/cron.d/cronjob && \
     chmod +x /app/start.sh
 
-CMD ["python", "main.py"]
+CMD ["/bin/bash","-c","./start.sh"]
