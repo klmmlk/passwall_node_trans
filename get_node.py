@@ -1,5 +1,8 @@
 # *- coding: utf-8 -*-
+import base64
 import random
+import re
+
 from bs4 import BeautifulSoup
 from requests import get
 
@@ -49,8 +52,18 @@ def from_web():
         if req_data.status_code == 200:
             soup = BeautifulSoup(req_data.text, 'lxml')
             node_text = soup.select_one('.content blockquote p').text
+            node_list = node_text.split('\n')
+            for index, node in enumerate(node_list):
+                if 'vmess://' in node:
+                    line = node.split('vmess://')[1]
+                    decode_line = base64.b64decode(line).decode('utf-8')
+                    line_json = eval(decode_line)
+                    line_json['ps'] = re.search(r"[A-Z]{2}_\d{2,3}",line_json['ps']).group()
+                    node_list[index] = 'vmess://' + base64.b64encode(str(line_json).encode('utf-8')).decode('utf-8')
+
             # 将node_text追加写入到data.txt中
-            write_data(node_text)
+            node_srt = '\n'.join(node_list)
+            write_data(node_srt)
 
 
 def main():
