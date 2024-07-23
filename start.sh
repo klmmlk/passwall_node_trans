@@ -1,3 +1,3 @@
 #!/bin/bash
-service cron start
 python3 main.py
+python3 get_node.py
