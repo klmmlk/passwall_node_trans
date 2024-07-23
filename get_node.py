@@ -96,5 +96,5 @@ def main():
 # 按装订区域中的绿色按钮以运行脚本。
 if __name__ == '__main__':
     scheduler = BlockingScheduler()
-    scheduler.add_job(main, 'interval',minutes=5 )
+    scheduler.add_job(main, 'interval',hours=4 )
     scheduler.start()
