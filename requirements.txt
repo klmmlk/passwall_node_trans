@@ -3,3 +3,4 @@ fastapi==0.111.1
 Requests==2.32.3
 uvicorn==0.30.1
 lxml==5.2.2
+APScheduler==3.10.4
