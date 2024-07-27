@@ -5,7 +5,7 @@ app = FastAPI()
 def get_text():
     with open("data.txt", "r") as file:
         return file.read().rstrip("\n")
-@app.get("/")
+@app.get("/get_node_text")
 def send_text():
     return get_text()
 
