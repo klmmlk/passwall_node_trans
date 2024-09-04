@@ -5,11 +5,37 @@ import os
 import random
 import re
 import logging
+from urllib import parse
+
 from bs4 import BeautifulSoup
 from requests import get
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 logging.basicConfig(filename='log.txt', level=logging.DEBUG, format='%(asctime)s %(levelname)s %(message)s')
+
+
+def moistr():
+    url1 = "https://moistr.freenods.sbs/sub?host=tun.sub.jokerin.icu&uuid=1f263db4-31e0-4a91-9eeb-6c89d8bbadf5&path=/?proxyip=proxyip.oracle.fxxk.dedyn.io"
+    rep = get(url1)
+    if rep.status_code == 200:
+        # print(rep.text)
+
+        node = base64.b64decode(rep.text)
+        node_str = str(node, 'utf-8')
+        node_str_decode = parse.unquote(node_str)
+        list_node = node_str_decode.split('\n')
+        last_node = "this is a test text,don't delete!!!"
+        new_node_list = []
+        for i in list_node:
+            now_node = i
+            if now_node[-20:] == last_node[-20:]:
+                now_node = now_node + str(random.randint(1, 500))
+            new_node_list.append(now_node)
+            last_node = i
+        if new_node_list:
+            write_data("\n".join(new_node_list))
+
+
 def gen_config(node_type, data):
     if node_type == 'hysteria2':
         try:
@@ -82,6 +108,8 @@ def from_web():
             # 将node_text追加写入到data.txt中
             node_srt = '\n'.join(node_list)
             write_data(node_srt)
+    else:
+        from_web()
 
 
 def main():
@@ -91,10 +119,11 @@ def main():
         f.write('')
     from_dongtai()
     from_web()
+    moistr()
 
 
 # 按装订区域中的绿色按钮以运行脚本。
 if __name__ == '__main__':
     scheduler = BlockingScheduler()
-    scheduler.add_job(main, 'interval',hours=4 )
+    scheduler.add_job(main, 'interval', hours=4)
     scheduler.start()
