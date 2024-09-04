@@ -29,7 +29,8 @@ app = FastAPI()
 IP_TANK = {
     "hk": "HK.txt",
     "jp": "JP.txt",
-    "us": "US.txt"
+    "us": "US.txt",
+    "cf": "CF_SITE.txt",
 }
 
 
@@ -51,7 +52,11 @@ def get_text():
     for each in ip_get('us'):
         simple_node = f"vless://1f263db4-31e0-4a91-9eeb-6c89d8bbadf5@{each}:443?encryption=none&security=tls&sni=tun.sub.jokerin.icu&fp=random&type=ws&host=tun.sub.jokerin.icu&path=%2F#CF-美国-{randint(1, 500)}"
         node_tank.append(simple_node)
+    for each in ip_get('cf'):
+        simple_node = f"vless://1f263db4-31e0-4a91-9eeb-6c89d8bbadf5@{each}:443?encryption=none&security=tls&sni=tun.sub.jokerin.icu&fp=random&type=ws&host=tun.sub.jokerin.icu&path=%2F#CF-油管专用-{randint(1, 500)}"
+        node_tank.append(simple_node)
     node_txt = "\n".join(node_tank)
+
     return node_txt
 
 
