@@ -100,7 +100,11 @@ def from_web():
                     line = node.split('vmess://')[1]
                     decode_line = base64.b64decode(line).decode('utf-8')
                     line_json = eval(decode_line)
-                    line_json['ps'] = re.search(r"[A-Z]{2}_\d{2,3}", line_json['ps']).group()
+
+                    try:
+                        line_json['ps'] = re.search(r"[A-Z]{2}_\d{2,3}", line_json['ps']).group()
+                    except:
+                        pass
                     node_list[index] = (
                             'vmess://' + base64.b64encode(str(json.dumps(line_json)).encode('utf-8')).decode(
                         'utf-8'))
@@ -124,6 +128,7 @@ def main():
 
 # 按装订区域中的绿色按钮以运行脚本。
 if __name__ == '__main__':
-    scheduler = BlockingScheduler()
-    scheduler.add_job(main, 'interval', hours=4)
-    scheduler.start()
+    # scheduler = BlockingScheduler()
+    # scheduler.add_job(main, 'interval', hours=4)
+    # scheduler.start()
+    main()
