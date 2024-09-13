@@ -1,5 +1,5 @@
 from fastapi import FastAPI,Response
-
+import base64
 app = FastAPI()
 
 
@@ -30,7 +30,7 @@ def get_text(web, tun, moistr,dongtai):
 
 @app.get("/get_node_text")
 def send_text(web: bool = False, tun: bool = False, moistr: bool = False, dongtai: bool = False):
-    return Response(get_text(web, tun, moistr, dongtai),media_type="text/plain")
+    return Response(base64.b64encode(get_text(web, tun, moistr, dongtai).encode("utf-8")),media_type="text/plain")
 
 
 if __name__ == '__main__':
